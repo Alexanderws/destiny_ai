@@ -1,14 +1,21 @@
 import React from "react";
+import styled from "styled-components";
 
 import Header from "./components/header.component";
 import PlayingField from "./pages/playing-field.component";
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+`;
+
 function App() {
   return (
-    <div className="App">
-      <Header />
+    <Container className="App">
       <PlayingField />
-    </div>
+    </Container>
   );
 }
 

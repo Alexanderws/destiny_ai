@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 
-import { GameContext } from "../contexts/game.context";
+import { EnemyContext } from "../contexts/enemy.context";
 
 const Card = styled.div`
   width: 156px;
@@ -13,11 +13,11 @@ const Card = styled.div`
 `;
 
 const CardStack = () => {
-  const { enemyDeck } = useContext(GameContext);
+  const { deck } = useContext(EnemyContext);
 
   const cardStack = [];
 
-  for (let i = 1; i <= Math.ceil(enemyDeck.length / 5); i++) {
+  for (let i = 1; i <= Math.ceil(deck.length / 5); i++) {
     cardStack.push(
       <Card key={i} style={{ zIndex: 20 - i, marginTop: i * 4 }} />
     );
@@ -63,8 +63,7 @@ const CardStack = () => {
         {cardStack}
       </div>
       <div style={{ fontWeight: 300 }}>
-        <span style={{ fontWeight: 500 }}>{enemyDeck.length}</span>{" "}
-        remaining
+        <span style={{ fontWeight: 500 }}>{deck.length}</span> remaining
       </div>
     </div>
   );

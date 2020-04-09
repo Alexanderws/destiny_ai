@@ -2,25 +2,29 @@ import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 
 import { GameContext } from "../contexts/game.context";
+import { EnemyContext } from "../contexts/enemy.context";
 
 import EnemyRow from "../components/enemy-row.component";
+import BattlefieldTop from "../components/battlefield-top.component";
+import BattlefieldBottom from "../components/battlefield-bottom.component";
+import PlayerRow from "../components/player-row.component";
 import ActionRow from "../components/action-row.component";
-import Die from "../components/die.component";
+import Die from "../components/common/die.component";
 
 const Container = styled.div`
   display: flex;
+  min-height: 100vh;
   flex-direction: column;
-  background-color: white;
+  justify-content: space-between;
 `;
 
 const DicePool = styled.div`
   display: flex;
   flex-direction: row;
-  padding: 20px 120px;
-  background-color: lightgrey;
-  border-top: solid 10px grey;
-  border-bottom: solid 1px grey;
-  height: 200px;
+  align-items: center;
+  padding: 20px 160px;
+  background-color: #afa9a0;
+  min-height: 180px;
 `;
 
 const CardContainer = styled.div`
@@ -62,14 +66,17 @@ const ACTION = {
 
 const PlayingField = () => {
   const {
-    drawEnemyCard,
-    enemyDice,
-    selectDie,
     isPlayerTurn,
     enemyHasPassed,
     playerHasPassed,
     switchPlayer
   } = useContext(GameContext);
+  const {
+    dice,
+    drawCard,
+    selectDie,
+    characters: enemyCharacters
+  } = useContext(EnemyContext);
   const [enemyState, setEnemyState] = useState({
     isPerformingAction: false,
     actionType: ACTION.noAction,
@@ -83,8 +90,29 @@ const PlayingField = () => {
     }
   }, [isPlayerTurn]);
 
+  const getPossibleActions = () => {
+    let actions = [{ actionType: ACTION.passTurn, score: 0 }];
+    const diceInPool = dice.filter(dieObj => dieObj.inPool);
+
+    // check if dice in pool
+
+    // check if enough damage to kill
+    if ("enough damage to kill") {
+      actions.push({ actionType: ACTION.resolveMeleeDice, score: 10 });
+    }
+
+    // check if characters are activated
+    if (enemyCharacters.some(character => character.isReady)) {
+      actions.push({ actionType: ACTION.activateCharacter, score: 0 });
+    }
+
+    return actions;
+  };
+
   const resolveEnemyTurn = () => {
-    const enemyCard = drawEnemyCard();
+    let possibleActions = getPossibleActions();
+
+    const enemyCard = drawCard();
     setEnemyState({
       isPerformingAction: true,
       actionType: ACTION.playCard,
@@ -117,12 +145,13 @@ const PlayingField = () => {
 
   return (
     <Container>
-      <button onClick={resolveEnemyTurn}>DRAW CARD</button>
-      <EnemyRow />
+      <BattlefieldTop>
+        <EnemyRow />
+      </BattlefieldTop>
       {enemyState.isPerformingAction &&
         enemyState.actionType === ACTION.playCard && <CardResolver />}
       <DicePool>
-        {enemyDice
+        {dice
           .filter(dieObj => {
             return dieObj.inPool;
           })
@@ -136,7 +165,10 @@ const PlayingField = () => {
             );
           })}
       </DicePool>
-      <ActionRow />
+      <BattlefieldBottom>
+        <ActionRow />
+        <PlayerRow />
+      </BattlefieldBottom>
     </Container>
   );
 };

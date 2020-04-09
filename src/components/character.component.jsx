@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 
-import { MAIN_COLORS } from "../assets/colors";
-import Die from "./die.component";
+import { CHARACTER_COLOR } from "../assets/constants/colors";
+import { GameContext } from "../contexts/game.context";
+import { EnemyContext } from "../contexts/enemy.context";
+import Die from "./common/die.component";
+import DieSymbol from "./common/die-symbol.component";
+import DamageContainer from "./common/damage-container.component";
 
 const Container = styled.div`
   display: flex;
@@ -13,6 +17,7 @@ const Container = styled.div`
 const DiceColumn = styled.div`
   display: flex;
   padding: 0 10px;
+  width: 94px;
   flex-direction: column;
   justify-content: flex-end;
 `;
@@ -25,7 +30,6 @@ const Card = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   -webkit-transition: -webkit-transform 0.4s, margin 0.4s ease-in-out;
   -ms-transition: -ms-transform 0.4s, margin 0.4s ease-in-out;
@@ -43,35 +47,51 @@ const Card = styled.div`
 
 const Health = styled.div`
   position: absolute;
-  top: 5px;
-  right: 5px;
-  width: 32px;
-  height: 32px;
+  top: 40px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: white;
   border: 2px solid black;
   border-radius: 100%;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   font-weight: 600;
   padding: 0 1px 1px 0;
 `;
 
 const Name = styled.div`
   font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 8px 8px 0 0;
+  background-color: white;
+  text-align: center;
+  border-bottom: 2px solid black;
+  width: 100%;
+  height: 34px;
 `;
 
-const AdjustButton = styled.button`
-  height: 34px;
-  width: 34px;
-  margin: 8px 0;
-  font-weight: 800;
-  border-radius: 3px;
-  border: 1px solid lightgrey;
+const DieSymbolContainer = styled.div`
+  height: 24px;
+  width: 40px;
+  font-size: 1rem;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  background-color: white;
+  margin-bottom: -2px;
 `;
 
 const Character = props => {
+  const { getDieSymbols, rollDieIntoPool } = useContext(EnemyContext);
+  const { rerolling } = useContext(GameContext);
+  console.log("char - rerolling: ", rerolling);
   const {
     character,
     dice,
@@ -80,7 +100,20 @@ const Character = props => {
     onCardClicked
   } = props;
 
-  const bgColor = MAIN_COLORS[character.color];
+  const dieSymbols = getDieSymbols(character.id).map((dieSide, index) => {
+    return (
+      <DieSymbolContainer key={index}>
+        <DieSymbol
+          value={dieSide.value}
+          symbol={dieSide.type}
+          symbolSize={20}
+        />
+      </DieSymbolContainer>
+    );
+  });
+
+  const bgColor = CHARACTER_COLOR[character.color];
+
   return (
     <Container>
       <DiceColumn>
@@ -89,7 +122,10 @@ const Character = props => {
             <Die
               key={dieObj.id}
               dieObject={dieObj}
-              onDieClick={() => {}}
+              onDieClick={() => {
+                rollDieIntoPool(dieObj.id);
+              }}
+              rerolling={rerolling}
             />
           );
         })}
@@ -97,32 +133,16 @@ const Character = props => {
       <div
         style={{
           display: "flex",
-          flexDirection: "column"
+          flexDirection: "column",
+          justifyContent: "space-between",
+          alignItems: "center"
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center"
-          }}
-        >
-          <AdjustButton
-            name="minus"
-            onClick={() => onShieldsClicked("minus", character.id)}
-          >
-            -
-          </AdjustButton>
-          <div style={{ padding: "0 8px" }}>
-            Shields: {character.shields}
-          </div>
-          <AdjustButton
-            name="plus"
-            onClick={() => onShieldsClicked("plus", character.id)}
-          >
-            +
-          </AdjustButton>
-        </div>
+        <DamageContainer
+          character={character}
+          onDamageClicked={onDamageClicked}
+          onShieldsClicked={onShieldsClicked}
+        />
         <Card
           onClick={() => {
             onCardClicked(character.id);
@@ -132,28 +152,12 @@ const Character = props => {
         >
           <Name>{character.name}</Name>
           <Health>{character.currentHealth}</Health>
+          <div
+            style={{ position: "absolute", left: "10px", bottom: "10px" }}
+          >
+            {dieSymbols}
+          </div>
         </Card>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          margin: "42px 0 0 8px"
-        }}
-      >
-        <AdjustButton
-          name="plus"
-          onClick={() => onDamageClicked("plus", character.id)}
-        >
-          +
-        </AdjustButton>
-        <div>Dmg: {character.damage}</div>
-        <AdjustButton
-          name="minus"
-          onClick={() => onDamageClicked("minus", character.id)}
-        >
-          -
-        </AdjustButton>
       </div>
     </Container>
   );

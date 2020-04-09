@@ -4,11 +4,17 @@ import styled from "styled-components";
 import { GameContext } from "../contexts/game.context";
 
 const Container = styled.div`
-    display: flex;
-    padding: 
-    height: 80px;
-    width: 100wv;
-    padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+  width: 100vw;
+  padding: 10px 40px;
+  background-color: #f3f2f3;
+`;
+
+const Title = styled.h1`
+  font-weight: 500;
+  font-size: 1.325rem;
 `;
 
 const Header = () => {
@@ -16,7 +22,8 @@ const Header = () => {
 
   return (
     <Container>
-      <p>{isPlayerTurn ? "Player Turn" : "Enemy Turn"}</p>
+      <Title>Destiny AI</Title>
+      <p>{isPlayerTurn ? "YOUR TURN" : "ENEMY TURN"}</p>
     </Container>
   );
 };

@@ -14,9 +14,9 @@ const BlankIcon = ({ size }) => {
         <g
           id="Blank"
           stroke="none"
-          stroke-width="1"
+          strokeWidth="1"
           fill="none"
-          fill-rule="evenodd"
+          fillRule="evenodd"
         >
           <polygon
             id="Rectangle"

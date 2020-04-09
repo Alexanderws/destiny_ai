@@ -2,64 +2,51 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 
 import { GameContext } from "../contexts/game.context";
+import { EnemyContext } from "../contexts/enemy.context";
+
+import StyledContainer from "./common/styled-container.component";
+import StyledButton from "./common/styled-button.component";
 
 const Container = styled.div`
   display: flex;
-  height: 100px;
-  padding: 20px 60px;
-  justify-content: space-between;
-`;
-
-const MainButton = styled.button`
   height: 60px;
-  padding: 0 30px;
-  border-radius: 10px;
-  background-color: indigo;
-  color: white;
-  font-weight: 600;
-  text-align: center;
-  text-transform: uppercase;
+  padding: 20px 0;
+  justify-content: flex-end;
 `;
 
 const DiceActions = styled.div`
   display: flex;
-`;
-const DiceButton = styled.button`
-  height: 60px;
-  padding: 0 30px;
-  border-radius: 10px;
-  background-color: yellow;
-  color: black;
-  text-align: center;
-  text-transform: uppercase;
+  justify-content: space-between;
 `;
 
 const ActionRow = () => {
-  const {
-    isPlayerTurn,
-    switchPlayer,
-    enemyDice,
-    rollDice,
-    removeDice
-  } = useContext(GameContext);
+  const { isPlayerTurn, switchPlayer, rerollDice } = useContext(
+    GameContext
+  );
+  const { dice, rollDice, removeDice } = useContext(EnemyContext);
 
   const DiceActionRow = (
     <DiceActions>
-      <DiceButton onClick={rollDice}>Reroll</DiceButton>
-      <DiceButton onClick={removeDice}>Remove</DiceButton>
+      <StyledButton
+        onClick={() => {
+          rollDice();
+          rerollDice();
+        }}
+      >
+        Reroll
+      </StyledButton>
+      <div style={{ width: "20px" }} />
+      <StyledButton onClick={removeDice}>Remove</StyledButton>
+      <div style={{ width: "20px" }} />
     </DiceActions>
   );
 
   return (
     <Container>
-      <div>HALLO</div>
-      {enemyDice.some(die => die.isSelected) && DiceActionRow}
-      <MainButton
-        onClick={switchPlayer}
-        style={{ opacity: isPlayerTurn ? "1" : "0.5" }}
-      >
+      {dice.some(die => die.isSelected) && DiceActionRow}
+      <StyledButton primary onClick={switchPlayer}>
         End turn
-      </MainButton>
+      </StyledButton>
     </Container>
   );
 };

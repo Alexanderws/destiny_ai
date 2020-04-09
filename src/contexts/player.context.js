@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 export const PlayerContext = React.createContext({
   characters: [],
+  resources: 2,
+  adjustResources: () => {},
   adjustDamage: () => {},
   adjustShields: () => {}
 });
@@ -36,6 +38,19 @@ const initialCharacters = [
 
 export const PlayerContextProvider = props => {
   const [characters, setCharacters] = useState(initialCharacters);
+  const [resources, setResources] = useState(2);
+
+  const adjustResources = adjustmentType => {
+    setResources(prevState => {
+      if (adjustmentType === "minus" && prevState > 0) {
+        return prevState - 1;
+      }
+      if (adjustmentType === "plus") {
+        return prevState + 1;
+      }
+      return prevState;
+    });
+  };
 
   const adjustDamage = (adjustmentType, characterId) => {
     setCharacters(prevState => {
@@ -83,6 +98,8 @@ export const PlayerContextProvider = props => {
 
   const initialContext = {
     characters: characters,
+    resources: resources,
+    adjustResources: adjustResources,
     adjustDamage: adjustDamage,
     adjustShields: adjustShields
   };

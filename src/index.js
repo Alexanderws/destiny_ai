@@ -5,14 +5,17 @@ import "./normalize.css";
 import "./index.css";
 
 import { GameContextProvider } from "./contexts/game.context";
-import { EnemyCharactersContextProvider } from "./contexts/enemy-characters.context";
+import { EnemyContextProvider } from "./contexts/enemy.context";
+import { PlayerContextProvider } from "./contexts/player.context";
 
 ReactDOM.render(
   <React.StrictMode>
     <GameContextProvider>
-      <EnemyCharactersContextProvider>
-        <App />
-      </EnemyCharactersContextProvider>
+      <PlayerContextProvider>
+        <EnemyContextProvider>
+          <App />
+        </EnemyContextProvider>
+      </PlayerContextProvider>
     </GameContextProvider>
   </React.StrictMode>,
   document.getElementById("root")

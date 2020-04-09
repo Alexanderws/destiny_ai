@@ -1,18 +1,17 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 
-import { EnemyCharactersContext } from "../contexts/enemy-characters.context";
-import { GameContext } from "../contexts/game.context";
+import { EnemyContext } from "../contexts/enemy.context";
 
 import Character from "./character.component";
+import Resources from "./common/resources.component";
 import CardStack from "./card-stack.component";
 
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  padding: 40px 60px;
   justify-content: space-between;
-  height: 400px;
+  height: 300px;
 `;
 
 const EnemyRow = () => {
@@ -20,9 +19,11 @@ const EnemyRow = () => {
     characters,
     adjustDamage,
     adjustShields,
-    toggleReady
-  } = useContext(EnemyCharactersContext);
-  const { enemyDice } = useContext(GameContext);
+    toggleReady,
+    dice,
+    resources,
+    adjustResources
+  } = useContext(EnemyContext);
 
   return (
     <Container>
@@ -35,13 +36,17 @@ const EnemyRow = () => {
               onDamageClicked={adjustDamage}
               onShieldsClicked={adjustShields}
               onCardClicked={toggleReady}
-              dice={enemyDice.filter(die => {
+              dice={dice.filter(die => {
                 return (die.ownerId === characterObj.id) & !die.inPool;
               })}
             />
           );
         })}
       </div>
+      <Resources
+        resources={resources}
+        onAdjustClicked={adjustResources}
+      />
       <CardStack />
     </Container>
   );
