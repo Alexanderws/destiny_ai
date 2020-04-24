@@ -14,10 +14,7 @@ const Container = styled.div`
 
 const InnerContainer = styled.div`
   display: flex;
-  padding: 20px 60px 0 60px;
-  flex-direction: column;
-  flex-grow: 1;
-  justify-content: space-between;
+  padding: 30px 60px 0 60px;
 `;
 
 const CornerContainer = styled.div`

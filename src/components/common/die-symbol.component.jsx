@@ -1,10 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
+import { SYMBOL } from "../../assets/constants/die-symbols";
+
 import RangedIcon from "../../assets/icons/ranged.icon";
 import MeleeIcon from "../../assets/icons/melee.icon";
 import IndirectIcon from "../../assets/icons/indirect.icon";
-import ShieldsIcon from "../../assets/icons/shields.icon";
+import ShieldIcon from "../../assets/icons/shield.icon";
 import ResourceIcon from "../../assets/icons/resource.icon";
 import DisruptIcon from "../../assets/icons/disrupt.icon";
 import DiscardIcon from "../../assets/icons/discard.icon";
@@ -17,51 +19,51 @@ const ValueContainer = styled.div`
 
 const DieSymbol = ({ value, symbol, symbolSize = 22 }) => {
   switch (symbol) {
-    case "blank":
+    case SYMBOL.blank:
       return <BlankIcon size={symbolSize} />;
-    case "ranged":
+    case SYMBOL.ranged:
       return (
         <ValueContainer>
           {value}
           <RangedIcon size={symbolSize} />
         </ValueContainer>
       );
-    case "melee":
+    case SYMBOL.melee:
       return (
         <ValueContainer>
           {value}
           <MeleeIcon size={symbolSize} />
         </ValueContainer>
       );
-    case "indirect":
+    case SYMBOL.indirect:
       return (
         <ValueContainer>
           {value}
           <IndirectIcon size={symbolSize} />
         </ValueContainer>
       );
-    case "shields":
+    case SYMBOL.shield:
       return (
         <ValueContainer>
           {value}
-          <ShieldsIcon size={symbolSize} />
+          <ShieldIcon size={symbolSize} />
         </ValueContainer>
       );
-    case "resource":
+    case SYMBOL.resource:
       return (
         <ValueContainer>
           {value}
           <ResourceIcon size={symbolSize} />
         </ValueContainer>
       );
-    case "disrupt":
+    case SYMBOL.disrupt:
       return (
         <ValueContainer>
           {value}
           <DisruptIcon size={symbolSize} />
         </ValueContainer>
       );
-    case "discard":
+    case SYMBOL.discard:
       return (
         <ValueContainer>
           {value}

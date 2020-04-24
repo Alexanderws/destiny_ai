@@ -1,67 +1,74 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 export const GameContext = React.createContext({
   isPlayerTurn: true,
+  animateTurnChange: false,
+  setAnimateTurnChange: () => {},
   playerHasPassed: false,
   enemyHasPassed: false,
   rerolling: false,
   rerollDice: () => {},
   turn: 1,
   round: 1,
-  switchPlayer: () => {}
+  switchPlayer: () => {},
 });
 GameContext.displayName = "GameContext";
 
-export const GameContextProvider = props => {
+export const GameContextProvider = (props) => {
   const [state, setState] = useState({
     isPlayerTurn: true,
+    animateTurnChange: false,
     playerHasPassed: false,
     enemyHasPassed: false,
     rerolling: false,
     turn: 1,
-    round: 1
+    round: 1,
   });
 
-  const switchPlayer = () => {
-    setState(prevState => {
+  const setAnimateTurnChange = (shouldAnimate) => {
+    setState((prevState) => {
       return {
         ...prevState,
-        isPlayerTurn: !prevState.isPlayerTurn
+        animateTurnChange: shouldAnimate,
+      };
+    });
+  };
+
+  const switchPlayer = () => {
+    setState((prevState) => {
+      return {
+        ...prevState,
+        isPlayerTurn: !prevState.isPlayerTurn,
       };
     });
   };
 
   const rerollDice = () => {
-    setState(prevState => {
+    setState((prevState) => {
       return {
         ...prevState,
-        rerolling: true
+        rerolling: true,
       };
     });
     setTimeout(() => {
-      console.log("timeOuted: rerolling - ", state.rerolling);
-      setState(prevState => {
+      setState((prevState) => {
         return {
           ...prevState,
-          rerolling: false
+          rerolling: false,
         };
       });
     }, 1000);
   };
 
-  useEffect(() => {
-    if (state.rerolling) {
-      console.log("TRUE!!!");
-    }
-  }, [state.rerolling]);
-
   const initialContext = {
     isPlayerTurn: state.isPlayerTurn,
     playerHasPassed: state.playerHasPassed,
+    animateTurnChange: state.animateTurnChange,
+    setAnimateTurnChange: setAnimateTurnChange,
     enemyHasPassed: state.enemyHasPassed,
     rerolling: state.rerolling,
     rerollDice: rerollDice,
-    switchPlayer: switchPlayer
+    switchPlayer: switchPlayer,
   };
 
   return (

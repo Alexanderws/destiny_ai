@@ -10,16 +10,17 @@ import DamageContainer from "./common/damage-container.component";
 
 const Container = styled.div`
   display: flex;
-  margin: 0 20px;
-  width: 370px;
+  margin: 0 10px;
+  width: 310px;
 `;
 
 const DiceColumn = styled.div`
   display: flex;
-  padding: 0 10px;
+  padding-right: 10px;
   width: 94px;
   flex-direction: column;
   justify-content: flex-end;
+  margin-bottom: -5px;
 `;
 
 const Card = styled.div`
@@ -88,16 +89,15 @@ const DieSymbolContainer = styled.div`
   margin-bottom: -2px;
 `;
 
-const Character = props => {
+const Character = (props) => {
   const { getDieSymbols, rollDieIntoPool } = useContext(EnemyContext);
   const { rerolling } = useContext(GameContext);
-  console.log("char - rerolling: ", rerolling);
   const {
     character,
     dice,
     onDamageClicked,
     onShieldsClicked,
-    onCardClicked
+    onCardClicked,
   } = props;
 
   const dieSymbols = getDieSymbols(character.id).map((dieSide, index) => {
@@ -105,7 +105,7 @@ const Character = props => {
       <DieSymbolContainer key={index}>
         <DieSymbol
           value={dieSide.value}
-          symbol={dieSide.type}
+          symbol={dieSide.symbol}
           symbolSize={20}
         />
       </DieSymbolContainer>
@@ -117,7 +117,7 @@ const Character = props => {
   return (
     <Container>
       <DiceColumn>
-        {dice.map(dieObj => {
+        {dice.map((dieObj) => {
           return (
             <Die
               key={dieObj.id}
@@ -135,7 +135,7 @@ const Character = props => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          alignItems: "center"
+          alignItems: "center",
         }}
       >
         <DamageContainer

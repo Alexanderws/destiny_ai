@@ -1,0 +1,31 @@
+export const ACTION = {
+  activateCharacter: "activateCharacter",
+  playCard: "playCard",
+  resolveMeleeDice: "resolveMeleeDice",
+  resolveRangedDice: "resolveRangedDice",
+  resolveIndirectDice: "resolveIndirectDice",
+  resolveShieldDice: "resolveShieldDice",
+  resolveResourceDice: "resolveResourceDice",
+  resolveDiscardDice: "resolveDiscardDice",
+  resolveDisruptDice: "resolveDisruptDice",
+  rerollDice: "rerollDice",
+  claimBattlefield: "claimBattlefield",
+  passTurn: "passTurn",
+  noAction: "noAction",
+};
+
+export const ACTION_DESCRIPTION = {
+  [ACTION.activateCharacter]: "Activate a character",
+  [ACTION.playCard]: "Play a card",
+  [ACTION.resolveMeleeDice]: "Resolve all melee dice",
+  [ACTION.resolveRangedDice]: "Resolve all ranged dice",
+  [ACTION.resolveIndirectDice]: "Resolve all indirect dice",
+  [ACTION.resolveShieldDice]: "Resolve all shield dice",
+  [ACTION.resolveResourceDice]: "Resolve all resource dice",
+  [ACTION.resolveDiscardDice]: "Resolve all discard dice",
+  [ACTION.resolveDisruptDice]: "Resolve all disrupt dice",
+  [ACTION.rerollDice]: "Reroll dice",
+  [ACTION.claimBattlefield]: "Claim the battlefield",
+  [ACTION.passTurn]: "Pass the turn",
+  [ACTION.noAction]: "Take no action",
+};

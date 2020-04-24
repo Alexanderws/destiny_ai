@@ -13,7 +13,7 @@ const Container = styled.div`
 `;
 
 const InnerContainer = styled.div`
-  padding: 20px 60px;
+  padding: 20px 60px 30px 60px;
   display: flex;
   flex-direction: column;
 `;

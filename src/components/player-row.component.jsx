@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { CHARACTER_COLOR } from "../assets/constants/colors";
 import { PlayerContext } from "../contexts/player.context";
-import Resources from "./common/resources.component";
+import DamageContainer from "./common/damage-container.component";
 
 const Container = styled.div`
   display: flex;
@@ -15,6 +15,10 @@ const Container = styled.div`
 
 const CharacterContainer = styled.div`
   margin: 0 40px;
+  height: 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const Player = styled.div`
@@ -52,79 +56,24 @@ const Name = styled.div`
   font-weight: 600;
 `;
 
-const AdjustButton = styled.button`
-  height: 34px;
-  width: 34px;
-  margin: 8px 0;
-  font-weight: 800;
-  border-radius: 3px;
-  border: 1px solid lightgrey;
-`;
-
 const PlayerRow = () => {
-  const {
-    characters,
-    adjustDamage,
-    adjustShields,
-    resources,
-    adjustResources
-  } = useContext(PlayerContext);
-  console.log("");
+  const { characters, adjustDamage, adjustShields } = useContext(
+    PlayerContext
+  );
 
   return (
     <Container>
-      {characters.map(character => {
+      {characters.map((character) => {
         return (
           <CharacterContainer key={character.id}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center"
-              }}
-            >
-              <AdjustButton
-                name="minus"
-                onClick={() => adjustShields("minus", character.id)}
-              >
-                -
-              </AdjustButton>
-              <div style={{ padding: "0 8px" }}>
-                Shields: {character.shields}
-              </div>
-              <AdjustButton
-                name="plus"
-                onClick={() => adjustShields("plus", character.id)}
-              >
-                +
-              </AdjustButton>
-            </div>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center"
-              }}
-            >
-              <AdjustButton
-                name="minus"
-                onClick={() => adjustDamage("minus", character.id)}
-              >
-                -
-              </AdjustButton>
-              <div style={{ padding: "0 8px" }}>
-                Damage: {character.damage}
-              </div>
-              <AdjustButton
-                name="plus"
-                onClick={() => adjustDamage("plus", character.id)}
-              >
-                +
-              </AdjustButton>
-            </div>
+            <DamageContainer
+              character={character}
+              onDamageClicked={adjustDamage}
+              onShieldsClicked={adjustShields}
+            />
             <Player
               style={{
-                backgroundColor: CHARACTER_COLOR[character.color]
+                backgroundColor: CHARACTER_COLOR[character.color],
               }}
             >
               <Name>{character.name}</Name>
@@ -133,12 +82,6 @@ const PlayerRow = () => {
           </CharacterContainer>
         );
       })}
-      <div style={{ padding: "40px 0" }}>
-        <Resources
-          resources={resources}
-          onAdjustClicked={adjustResources}
-        />
-      </div>
     </Container>
   );
 };

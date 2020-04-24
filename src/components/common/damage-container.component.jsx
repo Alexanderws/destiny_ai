@@ -2,9 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 import { UI_COLOR, TEXT_COLOR } from "../../assets/constants/colors";
+import { FONT_SIZE, ICON_SIZE } from "../../assets/constants/sizes";
 
 import DamageIcon from "../../assets/icons/damage.icon";
-import ShieldsIcon from "../../assets/icons/shields.icon";
+import ShieldsIcon from "../../assets/icons/shield.icon";
 
 const Container = styled.div`
   color: ${TEXT_COLOR.black};
@@ -69,9 +70,9 @@ const Row = styled.div`
 const ValueContainer = styled.div`
   display: flex;
   flex: 1;
-  align-items: center;
+  align-items: end;
   justify-content: flex-end;
-  font-size: 1.3rem;
+  font-size: ${FONT_SIZE.damageResourceValue};
   padding-right: 16px;
 `;
 
@@ -89,8 +90,12 @@ const AdjustButton = styled.button`
   margin: 2px 0;
   font-size: 1.6rem;
   border: 0;
+  color: ${TEXT_COLOR.blackDim};
+
+  transition: color 0.15s, border 0.15s;
 
   &:hover {
+    color: ${TEXT_COLOR.black};
     height: 26px;
     margin-top: 0;
     border: 1px solid ${UI_COLOR.damageContainerDark};
@@ -105,7 +110,7 @@ const AdjustButton = styled.button`
   }
 `;
 
-const DamageContainer = props => {
+const DamageContainer = (props) => {
   const { character, onDamageClicked, onShieldsClicked } = props;
 
   return (
@@ -124,7 +129,10 @@ const DamageContainer = props => {
             </AdjustButton>
             <ValueContainer>
               {character.shields}
-              <ShieldsIcon size={24} color={TEXT_COLOR.black} />
+              <ShieldsIcon
+                size={ICON_SIZE.damageResource}
+                color={TEXT_COLOR.black}
+              />
             </ValueContainer>
             <AdjustButton
               name="plus"
@@ -143,7 +151,10 @@ const DamageContainer = props => {
             </AdjustButton>
             <ValueContainer>
               {character.damage}
-              <DamageIcon size={24} color={TEXT_COLOR.black} />
+              <DamageIcon
+                size={ICON_SIZE.damageResource}
+                color={TEXT_COLOR.black}
+              />
             </ValueContainer>
             <AdjustButton
               name="plus"

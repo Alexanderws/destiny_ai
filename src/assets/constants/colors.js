@@ -11,10 +11,13 @@ export const CHARACTER_COLOR = {
 };
 
 export const TEXT_COLOR = {
-  black: "#303030"
+  black: "#303030",
+  blackDim: "#88827E",
+  white: "#FFFFFF"
 };
 
 export const UI_COLOR = {
+  backgroundDark: "#303030",
   primary: "#780C1B",
   primaryDark: "#4D0812",
   secondary: "#BA9920",

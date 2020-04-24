@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import Header from "./components/header.component";
 import PlayingField from "./pages/playing-field.component";
 
 const Container = styled.div`

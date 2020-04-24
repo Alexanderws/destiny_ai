@@ -1,6 +1,6 @@
 import React from "react";
 
-const ShieldsIcon = ({ size = 22, color = "#000000" }) => {
+const ShieldIcon = ({ size = 22, color = "#000000" }) => {
   return (
     <div style={{ width: size, height: size }}>
       <svg
@@ -28,4 +28,4 @@ const ShieldsIcon = ({ size = 22, color = "#000000" }) => {
   );
 };
 
-export default ShieldsIcon;
+export default ShieldIcon;
