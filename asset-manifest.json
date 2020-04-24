@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/destiny_ai/static/css/main.ba42071c.chunk.css",
+    "main.js": "/destiny_ai/static/js/main.cba6fa57.chunk.js",
+    "main.js.map": "/destiny_ai/static/js/main.cba6fa57.chunk.js.map",
+    "runtime-main.js": "/destiny_ai/static/js/runtime-main.fb2c8c3d.js",
+    "runtime-main.js.map": "/destiny_ai/static/js/runtime-main.fb2c8c3d.js.map",
+    "static/js/2.7bf5f6c8.chunk.js": "/destiny_ai/static/js/2.7bf5f6c8.chunk.js",
+    "static/js/2.7bf5f6c8.chunk.js.map": "/destiny_ai/static/js/2.7bf5f6c8.chunk.js.map",
+    "index.html": "/destiny_ai/index.html",
+    "precache-manifest.3c553bcd822e16a0f88972567178aa63.js": "/destiny_ai/precache-manifest.3c553bcd822e16a0f88972567178aa63.js",
+    "service-worker.js": "/destiny_ai/service-worker.js",
+    "static/css/main.ba42071c.chunk.css.map": "/destiny_ai/static/css/main.ba42071c.chunk.css.map",
+    "static/js/2.7bf5f6c8.chunk.js.LICENSE.txt": "/destiny_ai/static/js/2.7bf5f6c8.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.fb2c8c3d.js",
+    "static/js/2.7bf5f6c8.chunk.js",
+    "static/css/main.ba42071c.chunk.css",
+    "static/js/main.cba6fa57.chunk.js"
+  ]
+}
